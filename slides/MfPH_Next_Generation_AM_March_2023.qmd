@@ -1,0 +1,219 @@
+---
+title: "Using statistical methods and reproducible tools to gain new insights from biomedical and public health data"
+author: | 
+  | Ariel Mundo Ortiz
+institute: |
+  | Centre de Recherches Mathematiques, Université de Montréal \newline \newline \Large \textbf{MfPH Next Generation Seminar Series}
+date: "March 15, 2023"
+format: 
+  beamer:
+    theme: "Antibes"
+    colortheme: "dolphin"
+    incremental: true
+    header-includes: |
+      \titlegraphic{\vspace{-1.5cm}\flushright\includegraphics[width=2cm,height=2cm]{latex/MfPH_logo.png}}
+#logo: latex/logo.png
+keep-tex: true
+cite-method: biblatex
+biblatexoptions: "style=authoryear"
+bibliography: refs.bib
+csl: "apa-6th-edition.csl"
+#include-in-header: 
+#  file: latex/preamble.sty
+
+---
+
+## Introduction
+
+- Data is the core of research. However, data is not information, as it needs to be processed before we can get information from it.
+
+- This is specially true in the case of health research: public health, or biomedical data can be complex, and decisions along the analysis can result in different interpretations.
+
+- In this talk I will focus on two examples that showcase how we can get more insight from data 
+
+# The Case of Public Health Data
+
+## COVID-19
+
+- COVID-19 vaccination has been an important component of public health strategies aimed at managing the pandemic.
+
+- However, COVID-19 vaccination has not been equal across different population segments.
+
+. . .
+
+- Individuals with lower income, and those belonging to a racial/ethnic minority have had lower vaccination uptake \footcite{nafilyan2021}$^{,}$\footcite{gerretsen2021}.
+
+
+## COVID-19: The Case of Ontario
+
+- The Fields Institute collected some very nice data regarding COVID-19 vaccination in Ontario, the _Survey of COVID-19 related Behaviours and Attitudes_.
+
+  - The survey ran between late 2021 and early 2022 and collected socio-demographic information along with self-reported vaccination status ("Have you received the first dose of the Covid vaccine?")
+  
+
+## COVID-19: The Case of Ontario
+
+| Variable             | Levels                                            |            
+|:---------------------|---------------------------------------------------|
+| Age group            | 16-34,35-54,55 and over                           |
+| Income bracket (CAD) | under 25,000, 25,000-59,999, 60,000 and above     |
+| Race/ethnicity       | Arab/Middle Eastern, Black, East Asian/Pacific Islander, Indigenous, Latin American, Mixed, South Asian, White Caucasian, Other |
+
+
+: Selected socio-economic factors from the survey {#tbl-covariates}
+
+## COVID-19: The Case of Ontario
+
+- Other studies have analyzed the dependency on vaccination status using socio-economic data.
+
+- We could do the same, but what other information could we get from this data?
+
+- From a Public Health Perspective, there have been some relatively recent developments in Ontario.
+
+
+## COVID-19: The Case of Ontario
+
+- However, Ontario adopted in late 2019 the Health Regions for healthcare and phased out the Local Health Integration Network (LHIN) approach.
+
+- The change is relatively new, and therefore, geographical data can be used to analyze data within the different Health Regions.
+
+
+## COVID-19: The Case of Ontario
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![Ontario LHINs (Crighton et al. 2015)](latex/LHIN_map.jpg){width=100%} 
+
+:::
+
+::: {.column width="50%"}
+. . .
+
+![Ontario Health Regions (Ontario Business Health Plan 2022-2023)](latex/ON_HR_map.jpg){width=100%}
+
+:::
+
+::::
+
+
+## COVID-19
+
+- Therefore, we decided to integrate the different Health Regions in our analysis to determine the odds of vaccination.
+
+$$
+\begin{aligned}
+\log \left( \frac{p\textrm{(vac)}}{1-p\textrm{(vac)}} \right) = \beta_0+ \beta_{1}\textrm{(Age group)} +\beta_{2} \textrm{ Race} +\\ \beta_3 \textrm{ Health Region} + \beta_4 \textrm{ Income}+ \\ \\ \beta_5\textrm{(Health Region} \times \textrm{Race)} + \beta_6 \textrm{ (Income} \times \textrm{Race)}
+\end{aligned}
+$$ {#eq-model1}
+
+## Results
+
+\tiny
+\renewcommand{\arraystretch}{0.5}
+
+\hypertarget{tbl-model}{}
+\begin{longtable}{lccc}
+\caption{\label{tbl-model}Multivariable Regression Results}\tabularnewline
+
+\toprule
+\textbf{Characteristic} & \textbf{OR} & \textbf{95\% CI} & \textbf{p-value}\\
+\midrule
+\endfirsthead
+\multicolumn{4}{@{}l}{\textit{(continued)}}\\
+\toprule
+\textbf{Characteristic} & \textbf{OR} & \textbf{95\% CI} & \textbf{p-value}\\
+\midrule
+\endhead
+
+\endfoot
+\bottomrule
+\endlastfoot
+\textbf{Age Group} &  &  & \\
+\hspace{1em}16\_34 & — & — & \\
+\hspace{1em}35\_54 & 0.90 & 0.67, 1.21 & 0.5\\
+\hspace{1em}55\_and\_over & 0.99 & 0.74, 1.32 & >0.9\\
+\textbf{Income} &  &  & \\
+\hspace{1em}60000\_and\_above & — & — & \\
+\hspace{1em}25000\_59999 & 0.59 & 0.39, 0.89 & 0.011\\
+\hspace{1em}under\_25000 & 0.37 & 0.25, 0.56 & <0.001\\
+\textbf{Race} &  &  & \\
+\hspace{1em}white\_caucasian & — & — & \\
+\hspace{1em}arab\_middle\_eastern & 0.31 & 0.14, 0.69 & 0.004\\
+\hspace{1em}black & 0.32 & 0.17, 0.60 & <0.001\\
+\hspace{1em}east\_asian\_pacific\_islander & 1.15 & 0.50, 2.66 & 0.7\\
+\hspace{1em}indigenous & 0.44 & 0.19, 1.02 & 0.056\\
+\hspace{1em}latin\_american & 0.28 & 0.11, 0.67 & 0.004\\
+\hspace{1em}mixed & 0.64 & 0.25, 1.65 & 0.4\\
+\hspace{1em}other & 0.22 & 0.12, 0.41 & <0.001\\
+\hspace{1em}south\_asian & 0.91 & 0.49, 1.69 & 0.8\\
+\textbf{Health Region} &  &  & \\
+\hspace{1em}Toronto & — & — & \\
+\hspace{1em}Central & 1.47 & 0.92, 2.35 & 0.11\\
+\hspace{1em}East & 1.42 & 0.90, 2.23 & 0.13\\
+\hspace{1em}West & 1.55 & 1.05, 2.30 & 0.029\\
+\textbf{Income * Race} &  &  & \\
+\hspace{1em}25000\_59999 * arab\_middle\_eastern & 1.79 & 0.67, 4.83 & 0.2\\
+\hspace{1em}under\_25000 * arab\_middle\_eastern & 3.05 & 1.26, 7.39 & 0.013\\
+\hspace{1em}25000\_59999 * black & 1.34 & 0.59, 3.05 & 0.5\\
+\hspace{1em}under\_25000 * black & 3.19 & 1.45, 6.99 & 0.004\\
+\hspace{1em}25000\_59999 * east\_asian\_pacific\_islander & 0.42 & 0.17, 1.05 & 0.062\\
+\hspace{1em}under\_25000 * east\_asian\_pacific\_islander & 1.16 & 0.47, 2.86 & 0.8\\
+\hspace{1em}25000\_59999 * indigenous & 1.36 & 0.48, 3.89 & 0.6\\
+\hspace{1em}under\_25000 * indigenous & 1.45 & 0.55, 3.80 & 0.5\\
+\hspace{1em}25000\_59999 * latin\_american & 1.24 & 0.45, 3.43 & 0.7\\
+\end{longtable}
+
+## Results
+
+\tiny
+\renewcommand{\arraystretch}{0.5}
+
+\hypertarget{tbl-model1}{}
+\begin{longtable}{lccc}
+\caption{\label{tbl-model}Multivariable Regression Results}\tabularnewline
+
+\toprule
+\textbf{Characteristic} & \textbf{OR} & \textbf{95\% CI} & \textbf{p-value}\\
+\midrule
+
+\hspace{1em}under\_25000 * latin\_american & 2.80 & 1.04, 7.51 & 0.041\\
+\hspace{1em}25000\_59999 * mixed & 0.85 & 0.32, 2.26 & 0.7\\
+\hspace{1em}under\_25000 * mixed & 1.10 & 0.37, 3.27 & 0.9\\
+\hspace{1em}25000\_59999 * other & 6.93 & 2.65, 18.1 & <0.001\\
+\hspace{1em}under\_25000 * other & 4.59 & 2.33, 9.05 & <0.001\\
+\hspace{1em}25000\_59999 * south\_asian & 1.20 & 0.51, 2.85 & 0.7\\
+\hspace{1em}under\_25000 * south\_asian & 2.00 & 0.93, 4.30 & 0.077\\
+\textbf{Race * Health Region} &  &  & \\
+\hspace{1em}arab\_middle\_eastern * Central & 0.66 & 0.26, 1.70 & 0.4\\
+\hspace{1em}black * Central & 0.44 & 0.19, 0.98 & 0.046\\
+\hspace{1em}east\_asian\_pacific\_islander * Central & 0.98 & 0.38, 2.53 & >0.9\\
+\hspace{1em}indigenous * Central & 0.63 & 0.22, 1.79 & 0.4\\
+\hspace{1em}latin\_american * Central & 0.67 & 0.23, 1.96 & 0.5\\
+\hspace{1em}mixed * Central & 0.73 & 0.24, 2.22 & 0.6\\
+\hspace{1em}other * Central & 0.80 & 0.36, 1.78 & 0.6\\
+\hspace{1em}south\_asian * Central & 0.54 & 0.25, 1.20 & 0.13\\
+\hspace{1em}arab\_middle\_eastern * East & 0.43 & 0.13, 1.45 & 0.2\\
+\hspace{1em}black * East & 0.83 & 0.34, 2.04 & 0.7\\
+\hspace{1em}east\_asian\_pacific\_islander * East & 0.86 & 0.29, 2.56 & 0.8\\
+\hspace{1em}indigenous * East & 0.69 & 0.23, 2.08 & 0.5\\
+\hspace{1em}latin\_american * East & 1.03 & 0.32, 3.34 & >0.9\\
+\hspace{1em}mixed * East & 0.91 & 0.28, 3.03 & 0.9\\
+\hspace{1em}other * East & 1.05 & 0.39, 2.83 & >0.9\\
+\hspace{1em}south\_asian * East & 0.52 & 0.19, 1.45 & 0.2\\
+\hspace{1em}arab\_middle\_eastern * West & 1.00 & 0.37, 2.73 & >0.9\\
+\hspace{1em}black * West & 0.76 & 0.32, 1.80 & 0.5\\
+\hspace{1em}east\_asian\_pacific\_islander * West & 0.52 & 0.20, 1.34 & 0.2\\
+\hspace{1em}indigenous * West & 0.39 & 0.14, 1.09 & 0.073\\
+\hspace{1em}latin\_american * West & 0.94 & 0.32, 2.72 & >0.9\\
+\hspace{1em}mixed * West & 0.37 & 0.12, 1.16 & 0.089\\
+\hspace{1em}other * West & 0.41 & 0.18, 0.93 & 0.032\\
+\hspace{1em}south\_asian * West & 0.41 & 0.18, 0.95 & 0.037\\*
+\multicolumn{4}{l}{\rule{0pt}{1em}\textsuperscript{1} OR = Odds Ratio, CI = Confidence Interval}\\
+\end{longtable}
+
+
+# The Case of Biomedical Data
+
+## Longitudinal Data
