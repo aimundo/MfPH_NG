@@ -11,7 +11,7 @@ format:
     colortheme: "dolphin"
     incremental: true
     header-includes: |
-      \titlegraphic{\vspace{-1.5cm}\flushright\includegraphics[width=2cm,height=2cm]{latex/MfPH_logo.png}}
+      \titlegraphic{\vspace{-1.5cm}\flushright\includegraphics[width=2cm,height=2cm]{img/MfPH_logo.png}}
 #logo: latex/logo.png
 keep-tex: true
 cite-method: biblatex
@@ -24,6 +24,19 @@ csl: "apa-6th-edition.csl"
 ---
 
 ## Introduction
+
+```{r,setup}
+
+library(tidyverse)
+library(mgcv)
+library(ggplot2)
+library(patchwork)
+library(here)
+library(emmeans)
+library(viridis)
+set.seed(1) #for reproducibility
+```
+
 
 - Data is the core of research. However, data is not information, as it needs to be processed before we can get information from it.
 
@@ -84,21 +97,24 @@ csl: "apa-6th-edition.csl"
 
 ::: {.column width="50%"}
 
-![Ontario LHINs (Crighton et al. 2015)](latex/LHIN_map.jpg){width=100%} 
+![Ontario LHINs (Crighton et al. 2015)](img/LHIN_map.jpg){width=100%} 
 
 :::
 
 ::: {.column width="50%"}
 . . .
 
-![Ontario Health Regions (Ontario Business Health Plan 2022-2023)](latex/ON_HR_map.jpg){width=100%}
+![Ontario Health Regions (Ontario Business Health Plan 2022-2023)](img/ON_HR_map.jpg){width=100%}
 
 :::
 
 ::::
 
+. . .
 
-## COVID-19
+- \textcolor{red}{Data cleaning is \textbf{important}}
+
+## COVID-19: The Case of Ontario
 
 - Therefore, we decided to integrate the different Health Regions in our analysis to determine the odds of vaccination.
 
@@ -108,6 +124,7 @@ $$
 \end{aligned}
 $$ {#eq-model1}
 
+
 ## Results
 
 \tiny
@@ -115,7 +132,7 @@ $$ {#eq-model1}
 
 \hypertarget{tbl-model}{}
 \begin{longtable}{lccc}
-\caption{\label{tbl-model}Multivariable Regression Results}\tabularnewline
+\caption{\label{tbl-model}\textbf{Selected} Multivariable Regression Results}\tabularnewline
 
 \toprule
 \textbf{Characteristic} & \textbf{OR} & \textbf{95\% CI} & \textbf{p-value}\\
@@ -130,39 +147,35 @@ $$ {#eq-model1}
 \endfoot
 \bottomrule
 \endlastfoot
-\textbf{Age Group} &  &  & \\
-\hspace{1em}16\_34 & — & — & \\
-\hspace{1em}35\_54 & 0.90 & 0.67, 1.21 & 0.5\\
-\hspace{1em}55\_and\_over & 0.99 & 0.74, 1.32 & >0.9\\
-\textbf{Income} &  &  & \\
-\hspace{1em}60000\_and\_above & — & — & \\
-\hspace{1em}25000\_59999 & 0.59 & 0.39, 0.89 & 0.011\\
-\hspace{1em}under\_25000 & 0.37 & 0.25, 0.56 & <0.001\\
+\textbf{Income (CAD)} &  &  & \\
+\hspace{1em}60000 and above & — & — & \\
+\hspace{1em}25000-59999 & 0.59 & 0.39, 0.89 & 0.011\\
+\hspace{1em}under 25000 & 0.37 & 0.25, 0.56 & <0.001\\
 \textbf{Race} &  &  & \\
-\hspace{1em}white\_caucasian & — & — & \\
-\hspace{1em}arab\_middle\_eastern & 0.31 & 0.14, 0.69 & 0.004\\
-\hspace{1em}black & 0.32 & 0.17, 0.60 & <0.001\\
-\hspace{1em}east\_asian\_pacific\_islander & 1.15 & 0.50, 2.66 & 0.7\\
-\hspace{1em}indigenous & 0.44 & 0.19, 1.02 & 0.056\\
-\hspace{1em}latin\_american & 0.28 & 0.11, 0.67 & 0.004\\
-\hspace{1em}mixed & 0.64 & 0.25, 1.65 & 0.4\\
-\hspace{1em}other & 0.22 & 0.12, 0.41 & <0.001\\
-\hspace{1em}south\_asian & 0.91 & 0.49, 1.69 & 0.8\\
+\hspace{1em}White/Caucasian & — & — & \\
+\hspace{1em}Arab/Middle Eastern & 0.31 & 0.14, 0.69 & 0.004\\
+\hspace{1em}Black & 0.32 & 0.17, 0.60 & <0.001\\
+\hspace{1em}East Asian/Pacific Islander & 1.15 & 0.50, 2.66 & 0.7\\
+\hspace{1em}Indigenous & 0.44 & 0.19, 1.02 & 0.056\\
+\hspace{1em}Latin Aamerican & 0.28 & 0.11, 0.67 & 0.004\\
+\hspace{1em}Mixed & 0.64 & 0.25, 1.65 & 0.4\\
+\hspace{1em}Other & 0.22 & 0.12, 0.41 & <0.001\\
+\hspace{1em}South Asian & 0.91 & 0.49, 1.69 & 0.8\\
 \textbf{Health Region} &  &  & \\
 \hspace{1em}Toronto & — & — & \\
 \hspace{1em}Central & 1.47 & 0.92, 2.35 & 0.11\\
 \hspace{1em}East & 1.42 & 0.90, 2.23 & 0.13\\
 \hspace{1em}West & 1.55 & 1.05, 2.30 & 0.029\\
-\textbf{Income * Race} &  &  & \\
-\hspace{1em}25000\_59999 * arab\_middle\_eastern & 1.79 & 0.67, 4.83 & 0.2\\
-\hspace{1em}under\_25000 * arab\_middle\_eastern & 3.05 & 1.26, 7.39 & 0.013\\
-\hspace{1em}25000\_59999 * black & 1.34 & 0.59, 3.05 & 0.5\\
-\hspace{1em}under\_25000 * black & 3.19 & 1.45, 6.99 & 0.004\\
-\hspace{1em}25000\_59999 * east\_asian\_pacific\_islander & 0.42 & 0.17, 1.05 & 0.062\\
-\hspace{1em}under\_25000 * east\_asian\_pacific\_islander & 1.16 & 0.47, 2.86 & 0.8\\
-\hspace{1em}25000\_59999 * indigenous & 1.36 & 0.48, 3.89 & 0.6\\
-\hspace{1em}under\_25000 * indigenous & 1.45 & 0.55, 3.80 & 0.5\\
-\hspace{1em}25000\_59999 * latin\_american & 1.24 & 0.45, 3.43 & 0.7\\
+\textbf{Income and Race} &  &  & \\
+\hspace{1em}25000-59999 * Arab/Middle Eastern & 1.79 & 0.67, 4.83 & 0.2\\
+\hspace{1em}under 25000 * Arab/Middle Eastern & 3.05 & 1.26, 7.39 & 0.013\\
+\hspace{1em}25000-59999 * Black & 1.34 & 0.59, 3.05 & 0.5\\
+\hspace{1em}under 25000 * Black & 3.19 & 1.45, 6.99 & 0.004\\
+\hspace{1em}25000-59999 * East Asian/Pacific Islander & 0.42 & 0.17, 1.05 & 0.062\\
+\hspace{1em}under 25000 * East Asian/Pacific Islander & 1.16 & 0.47, 2.86 & 0.8\\
+\hspace{1em}25000-59999 * Indigenous & 1.36 & 0.48, 3.89 & 0.6\\
+\hspace{1em}under 25000 * Indigenous & 1.45 & 0.55, 3.80 & 0.5\\
+\hspace{1em}25000-59999 * Latin American & 1.24 & 0.45, 3.43 & 0.7\\
 \end{longtable}
 
 ## Results
@@ -172,48 +185,424 @@ $$ {#eq-model1}
 
 \hypertarget{tbl-model1}{}
 \begin{longtable}{lccc}
-\caption{\label{tbl-model}Multivariable Regression Results}\tabularnewline
-
 \toprule
 \textbf{Characteristic} & \textbf{OR} & \textbf{95\% CI} & \textbf{p-value}\\
 \midrule
 
-\hspace{1em}under\_25000 * latin\_american & 2.80 & 1.04, 7.51 & 0.041\\
-\hspace{1em}25000\_59999 * mixed & 0.85 & 0.32, 2.26 & 0.7\\
-\hspace{1em}under\_25000 * mixed & 1.10 & 0.37, 3.27 & 0.9\\
-\hspace{1em}25000\_59999 * other & 6.93 & 2.65, 18.1 & <0.001\\
-\hspace{1em}under\_25000 * other & 4.59 & 2.33, 9.05 & <0.001\\
-\hspace{1em}25000\_59999 * south\_asian & 1.20 & 0.51, 2.85 & 0.7\\
-\hspace{1em}under\_25000 * south\_asian & 2.00 & 0.93, 4.30 & 0.077\\
-\textbf{Race * Health Region} &  &  & \\
-\hspace{1em}arab\_middle\_eastern * Central & 0.66 & 0.26, 1.70 & 0.4\\
-\hspace{1em}black * Central & 0.44 & 0.19, 0.98 & 0.046\\
-\hspace{1em}east\_asian\_pacific\_islander * Central & 0.98 & 0.38, 2.53 & >0.9\\
-\hspace{1em}indigenous * Central & 0.63 & 0.22, 1.79 & 0.4\\
-\hspace{1em}latin\_american * Central & 0.67 & 0.23, 1.96 & 0.5\\
-\hspace{1em}mixed * Central & 0.73 & 0.24, 2.22 & 0.6\\
-\hspace{1em}other * Central & 0.80 & 0.36, 1.78 & 0.6\\
-\hspace{1em}south\_asian * Central & 0.54 & 0.25, 1.20 & 0.13\\
-\hspace{1em}arab\_middle\_eastern * East & 0.43 & 0.13, 1.45 & 0.2\\
-\hspace{1em}black * East & 0.83 & 0.34, 2.04 & 0.7\\
-\hspace{1em}east\_asian\_pacific\_islander * East & 0.86 & 0.29, 2.56 & 0.8\\
-\hspace{1em}indigenous * East & 0.69 & 0.23, 2.08 & 0.5\\
-\hspace{1em}latin\_american * East & 1.03 & 0.32, 3.34 & >0.9\\
-\hspace{1em}mixed * East & 0.91 & 0.28, 3.03 & 0.9\\
+\hspace{1em}under 25000 * Latin American & 2.80 & 1.04, 7.51 & 0.041\\
+\hspace{1em}25000-59999 * Mixed & 0.85 & 0.32, 2.26 & 0.7\\
+\hspace{1em}under 25000 * Mixed & 1.10 & 0.37, 3.27 & 0.9\\
+\hspace{1em}25000-59999 * Other & 6.93 & 2.65, 18.1 & <0.001\\
+\hspace{1em}under 25000 * Other & 4.59 & 2.33, 9.05 & <0.001\\
+\hspace{1em}25000-59999 * South Asian & 1.20 & 0.51, 2.85 & 0.7\\
+\hspace{1em}under 25000 * South Asian & 2.00 & 0.93, 4.30 & 0.077\\
+\textbf{Race and Health Region} &  &  & \\
+\hspace{1em}Arab/Middle Eastern * Central & 0.66 & 0.26, 1.70 & 0.4\\
+\hspace{1em}Black * Central & 0.44 & 0.19, 0.98 & 0.046\\
+\hspace{1em}East Asian/Pacific Islander * Central & 0.98 & 0.38, 2.53 & >0.9\\
+\hspace{1em}Mixed * East & 0.91 & 0.28, 3.03 & 0.9\\
 \hspace{1em}other * East & 1.05 & 0.39, 2.83 & >0.9\\
-\hspace{1em}south\_asian * East & 0.52 & 0.19, 1.45 & 0.2\\
-\hspace{1em}arab\_middle\_eastern * West & 1.00 & 0.37, 2.73 & >0.9\\
-\hspace{1em}black * West & 0.76 & 0.32, 1.80 & 0.5\\
-\hspace{1em}east\_asian\_pacific\_islander * West & 0.52 & 0.20, 1.34 & 0.2\\
-\hspace{1em}indigenous * West & 0.39 & 0.14, 1.09 & 0.073\\
-\hspace{1em}latin\_american * West & 0.94 & 0.32, 2.72 & >0.9\\
-\hspace{1em}mixed * West & 0.37 & 0.12, 1.16 & 0.089\\
-\hspace{1em}other * West & 0.41 & 0.18, 0.93 & 0.032\\
-\hspace{1em}south\_asian * West & 0.41 & 0.18, 0.95 & 0.037\\*
+\hspace{1em}South Asian * East & 0.52 & 0.19, 1.45 & 0.2\\
+\hspace{1em}Arab/Middle Eastern * West & 1.00 & 0.37, 2.73 & >0.9\\
+\hspace{1em}Black * West & 0.76 & 0.32, 1.80 & 0.5\\
+\hspace{1em}East Asian/Pacific Islander * West & 0.52 & 0.20, 1.34 & 0.2\\
+\hspace{1em}Indigenous * West & 0.39 & 0.14, 1.09 & 0.073\\
+\hspace{1em}Latin American * West & 0.94 & 0.32, 2.72 & >0.9\\
+\hspace{1em}Mixed * West & 0.37 & 0.12, 1.16 & 0.089\\
+\hspace{1em}Other * West & 0.41 & 0.18, 0.93 & 0.032\\
+\hspace{1em}South Asian * West & 0.41 & 0.18, 0.95 & 0.037\\*
 \multicolumn{4}{l}{\rule{0pt}{1em}\textsuperscript{1} OR = Odds Ratio, CI = Confidence Interval}\\
 \end{longtable}
 
+## How do we interpret this?
+
+- Our results show that there were disparities in vaccination uptake in Ontario.
+
+- People in certain racial minority groups had lower odds of vaccination than White/Caucasian individuals.
+
+- However, individuals that identified with a racial/ethnic minority and that were in a low household income bracket (<60k CAD) had higher odds of vaccination than individuals with a high household income.
+
+- This is likely caused by the type of occupation: people in racial minorities, and those with a low household income work in essential occupations \footcite{hawkins2020}, and thus potentially got the vaccine to be able to work.
+
+## How do we interpret this?
+
+- But there are also intra-provincial differences in vaccine uptake within the Health Regions:
+  
+  - For example, South Asian individuals in the West Health Region had lower odds of vaccination that in other Health Regions.
+  
+  - These results provide a more comprehensive assessment of COVID-19 vaccination rates within Ontario, as they showed that certain minority groups within specific income brackets and certain Health Regions had differences in vaccination.
 
 # The Case of Biomedical Data
 
 ## Longitudinal Data
+
+- Biomedical studies often collect longitudinal data to see the effect of an intervention over time:
+  - How a chemotherapy treatment changes the metabolism of a tumor
+  - How the concentration of a drug changes over time in the blood
+  
+- \textcolor{red}{How is this data typically analyzed?}
+
+## Linear Models
+
+$$
+\begin{aligned}
+y_{ijt} = \beta_0+\beta_1 \times treatment_{j} +\beta_2 \times time_{t} +\\ \beta_3 \times time_{t}\times treatment_{j}+\varepsilon_{ijt}\\ 
+\end{aligned}
+$$ {#eq-model2}
+
+where, 
+
+$y_{ijt}$: is the response for subject $i$ in treatment group $j$ at time $t$ 
+
+. . .
+
+$\beta_0$: the mean group value
+
+. . .
+
+$time_t$, $treatment_j$: fixed effects
+
+. . .
+
+$\beta_1, \beta_2$ and $\beta_3$: linear slopes of the fixed effects. 
+
+. . .
+
+$\varepsilon_{ijt}$: error, assumed to be $\sim N(0,\sigma^2)$
+
+. . .
+
+A LMEM follows the same exact structure, only incorporates a random effect $\alpha_{ij}$, which allows for different intercepts.
+
+## Trends Over Time
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![Tumor imaging data (Skala et al. 2010)](img/Skala.jpg){width=100%}
+:::
+
+::: {.column width="50%"}
+![Tumor oxygenation data (Vishwanath et al. 2009)](img/Vishwanath.jpg){width=100%}
+:::
+::::
+
+## Trends Over Time
+
+- The issue in those data is that the trends are not linear, and therefore, a linear model will miss changes in the signal where some metabolic or physiological relevant change is taking place.
+
+- Polynomial effects can be used, but they create biases at the boundaries of the covariates\footcite{beck1998}.
+
+
+## Generalized Additive Models (GAMs)
+
+$$
+y_{ijt}=\beta_0+ \beta_1 \times treatment_j+f(time_t\mid \beta_j)+\varepsilon_{ijt}
+$$ {#eq-GAM}
+
+
+- The change of $y_{ijt}$ over time is represented by the _smooth function_ $f(time_t\mid \beta_j)$ with inputs as the covariates $time_t$ and parameters $\beta_j$. 
+
+. . .
+
+- We can use a _basis function_ to estimate the smooth function.
+
+. . .
+
+- Splines are helpful as basis functions: Thin plate regression splines (TPRS) are computationally efficient, and the underlying principle is that of polynomial pieces "joined" together
+
+## How GAMs work
+
+```{r,basis-functions-plot}
+#| echo: false
+#| fig-cap: Fitting process of a GAM.
+#| fig-width: 10
+#| fig-height: 6
+#| fig-align: center
+
+
+n_time = 6
+ x <- seq(1,6, length.out = n_time)
+ mu <- matrix(0, length(x), 2)
+ mu[, 1] <- sin(x+6) #mean response
+ #mu[, 1] <-  -(0.25 * x^2) +1.5*x-1.25 #mean response
+ mu[, 2] <- (0.25 * x^2) -1.5*x+1.25 #mean response
+ y <- array(0, dim = c(length(x), 2, 10))
+ errors <- array(0, dim = c(length(x), 2, 10))
+ for (i in 1:2) {     # number of treatments
+     for (j in 1:10) {  # number of subjects
+         # compound symmetry errors
+         errors[, i, j] <- rmvn(1, rep(0, length(x)), 0.1 * diag(6) + 0.025 * matrix(1, 6, 6))
+         y[, i, j] <- mu[, i] + errors[, i, j]
+     }
+ }
+ 
+##dataframe of "real" data for plotting
+ 
+y_r<-sin(x+6)
+
+vals_r<-tibble(x,y_r)
+
+p15<-ggplot(vals_r,aes(x=x,y=y_r))+
+  geom_smooth()+
+  labs(y='Original function',x="time")+
+ expand_limits(y=c(-2,2))+
+  theme_classic()
+
+ #label each table
+  dimnames(y) <- list(time = x, treatment = 1:2, subject = 1:10)
+ dimnames(errors) <- list(time = x, treatment = 1:2, subject = 1:10)
+ dimnames(mu) <- list(time = x, treatment = 1:2)
+ 
+ #Convert to dataframes with subject, time and group columns
+ dat <- as.data.frame.table(y, responseName = "y")
+ dat_errors <- as.data.frame.table(errors, responseName = "errors")
+ dat_mu <- as.data.frame.table(mu, responseName = "mu")
+ dat <- left_join(dat, dat_errors, by = c("time", "treatment", "subject"))
+ dat <- left_join(dat, dat_mu, by = c("time", "treatment"))
+ dat$time <- as.numeric(as.character(dat$time))
+ 
+ #label subject per group
+ dat <- dat %>%
+     mutate(subject = factor(paste(subject, treatment, sep = "-")))
+  
+ #extract  "Group 1" to fit the GAM
+  dat<-subset(dat,treatment==1)
+ #keep just the response and timepoint columns
+   dat<-dat[,c('y','time')]
+
+   #GAM model of time, 5 knots
+gm<-gam(y~s(time,k=5),data=dat)
+
+#model_matrix (also known as) 'design matrix'
+#will contain the smooths used to create  model 'gm'
+model_matrix<-as.data.frame(predict(gm,type='lpmatrix'))
+
+
+time<-c(1:6)
+
+basis<-model_matrix[1:6,] #extracting basis (because the values are repeated after every 6 rows)
+#basis<-model_matrix[1:6,-1] #extracting basis
+colnames(basis)[colnames(basis)=="(Intercept)"]<-"s(time).0"
+basis<-basis %>% #pivoting to long format
+  pivot_longer(
+    cols=starts_with("s")
+  )%>%
+  arrange(name) #ordering
+
+#length of dataframe to be created: number of knots by number of timepoints (minus 1 for the intercept that we won't plot)
+ln<-6*(length(coef(gm))) 
+
+basis_plot<-data.frame(Basis=integer(ln),
+                       value_orig=double(ln),
+                       time=integer(ln),
+                       cof=double(ln)
+)
+
+basis_plot$time<-rep(time) #pasting timepoints
+basis_plot$Basis<-factor(rep(c(1:5),each=6)) #pasting basis number values
+basis_plot$value_orig<-basis$value #pasting basis values
+basis_plot$cof<-rep(coef(gm)[1:5],each=6) #pasting coefficients
+basis_plot<-basis_plot%>%
+  mutate(mod_val=value_orig*cof) #the create the predicted values the bases need to be 
+#multiplied by the coefficients
+
+#creating labeller to change the labels in the basis plots
+
+basis_names<-c(
+  `1`="Intercept",
+  `2`="1",
+  `3`="2",
+  `4`="3",
+  `5`="4"
+)
+
+#calculating the final smooth by aggregating the basis functions
+
+smooth<-basis_plot%>% 
+  group_by(time)%>%
+  summarize(smooth=sum(mod_val))
+
+
+#original basis
+sz<-1
+p11<-ggplot(basis_plot,
+            aes(x=time,
+                y=value_orig,
+                colour=as.factor(Basis)
+                )
+            )+
+  geom_line(size=sz,
+            show.legend=FALSE)+
+  geom_point(size=sz+1,
+             show.legend = FALSE)+
+  labs(y='Basis functions')+
+  facet_wrap(~Basis,
+             labeller = as_labeller(basis_names)
+             )+
+  theme_classic()
+  
+
+#penalized basis
+p12<-ggplot(basis_plot,
+            aes(x=time,
+                y=mod_val,
+                colour=as.factor(Basis)
+                )
+            )+
+  geom_line(show.legend = FALSE,
+            size=sz)+
+  geom_point(show.legend = FALSE,
+             size=sz+1)+
+  labs(y='Penalized \n basis functions')+
+  scale_y_continuous(breaks=seq(-1,1,1))+
+  facet_wrap(~Basis,
+             labeller=as_labeller(basis_names)
+             )+
+  theme_classic()
+
+#heatmap of the  coefficients
+x_labels<-c("Intercept","1","2","3","4")
+p13<-ggplot(basis_plot,
+            aes(x=Basis,
+                y=Basis))+
+  geom_tile(aes(fill = cof), 
+            colour = "black") +
+    scale_fill_gradient(low = "white",
+                        high = "#B50A2AFF")+ 
+  labs(x='Basis',
+       y='Matrix')+
+  scale_x_discrete(labels=x_labels)+
+  geom_text(aes(label=round(cof,2)),
+            size=4,
+            show.legend = FALSE)+
+  theme_classic()+
+  theme(legend.title = element_blank())
+  
+#plotting simulated datapoints and smooth term
+p14<-ggplot(data=dat,
+            aes(x=time,y=y))+
+  geom_point(size=sz+1)+
+  labs(y='Fitted \n smooth')+
+  geom_line(data=smooth,
+            aes(x=time,
+                y=smooth),
+            color="#6C581DFF",
+            size=sz+1)+
+  expand_limits(y=c(-2,2))+
+  theme_classic()
+  
+
+#Combining all
+b_plot<-p15+p11+p13+p12+p14+plot_annotation(tag_levels='A')&
+  theme(
+     text=element_text(size=18)
+     )
+
+b_plot
+```
+
+## An Example
+
+- Simulated data from a study on radiotherapy in a mouse model of cervical cancer \footcite{zheng2019}.
+
+```{r, simulated-data}
+#| echo: false
+#| fig-height: 2
+#| fig-width: 2.5
+#| fig-cap: Tumor volume in two groups of tumors under radiotherapy
+
+breaks_s<-c(10,12,14,16,18,20,22,24,26) #set tick marks
+data<-read.csv(here("slides/data","tumor_data_1.csv")) #read data, mean tumor volume trend
+data$Group<-as.factor(data$Group) #make Group a factor
+
+
+simulate_data <- function(dat, n = 10, sd = 15) {
+    dat_sim <- dat %>%
+        slice(rep(1:n(), each = n)) %>%
+        group_by(Group, Day) %>%
+        mutate(
+            Vol_sim = pmax(rnorm(n, Volume, sd), 0.0001),
+            subject=rep(1:10),
+            subject=factor(paste(subject, Group, sep = "-"))
+        ) %>%
+        ungroup()
+
+    return(dat_sim)
+}
+
+n <- 10 #number of observations (from paper)
+sd <- 60 #mm3 approximate sd from paper
+dat_sim <- simulate_data(data, n, sd)
+
+
+#plotting simulated data
+ggplot(dat_sim, aes(x = Day, y = Vol_sim, color = Group)) +
+    geom_point(show.legend=FALSE,
+               size=0.5,
+               alpha=0.6)+
+    stat_summary(aes(y = Vol_sim,
+                     group=Group),
+                 fun=mean, 
+                 geom="line",
+                 size=0.5,
+                 show.legend = FALSE,
+                 alpha=0.6)+
+    labs(y=expression(Volume(mm^3)))+
+    theme_classic()+
+    #theme(
+        #axis.text=element_text(size=5)
+    #)+
+    scale_x_continuous(breaks=breaks_s)+
+    scale_colour_viridis_d(option="mako",end=0.8)
+
+```
+
+## Fitting a GAM
+
+```{r,model}
+#| echo: false
+#| warning: false
+
+gam1<- gam(Vol_sim ~ Group+s(Day, by = Group, k = 9),
+          method='REML',
+          data  = dat_sim)
+
+#creates a dataframe using the length of the covariates for the GAM
+gam_predict <- expand_grid(Group = factor(c("T1", "T2")),
+                           Day = seq(10, 26, by = 0.1),
+                           subject=factor(rep(1:10)))
+
+#adds the predictions to the grid and creates a confidence interval for GAM
+gam_predict<-gam_predict%>%
+    mutate(fit = predict(gam1,gam_predict,se.fit = TRUE,type='response')$fit,
+           se.fit = predict(gam1, gam_predict,se.fit = TRUE,type='response')$se.fit)
+
+#plot smooths and confidence interval for GAM
+f3<-ggplot(data=dat_sim, aes(x=Day, y=Vol_sim, group=Group)) +
+    geom_point(aes(color=Group),size=1.5,alpha=0.5,show.legend = FALSE)+
+    geom_ribbon(aes( x=Day,ymin=(fit - 2*se.fit),
+                     ymax=(fit + 2*se.fit),
+                     fill=Group
+    ),
+    alpha=0.3,
+    data=gam_predict,
+    show.legend=FALSE,
+    inherit.aes=FALSE) +
+    geom_line(aes(y=fit,
+                  color=Group),
+              size=1,
+              data=gam_predict,
+              show.legend = FALSE)+
+    #facet_wrap(~Group)+
+    labs(y=expression(atop("Tumor volume", (mm^3))))+
+    scale_x_continuous(breaks=breaks_s)+
+    theme_classic()+
+    theme(
+        axis.text=element_text(size=8)
+    )+
+    scale_colour_viridis_d(option="mako",end=0.8)
+
+f3
+```
+

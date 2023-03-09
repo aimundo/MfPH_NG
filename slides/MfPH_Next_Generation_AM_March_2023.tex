@@ -102,7 +102,7 @@
 \def\fps@figure{htbp}
 \makeatother
 
-\titlegraphic{\vspace{-1.5cm}\flushright\includegraphics[width=2cm,height=2cm]{latex/MfPH_logo.png}}
+\titlegraphic{\vspace{-1.5cm}\flushright\includegraphics[width=2cm,height=2cm]{img/MfPH_logo.png}}
 \makeatletter
 \makeatother
 \makeatletter
@@ -176,7 +176,7 @@ insights from biomedical and public health data}
 
 \begin{document}
 \frame{\titlepage}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, frame hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, boxrule=0pt, interior hidden, sharp corners]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, interior hidden, frame hidden, borderline west={3pt}{0pt}{shadecolor}, sharp corners, enhanced, breakable]}{\end{tcolorbox}}\fi
 
 \begin{frame}{Introduction}
 \protect\hypertarget{introduction}{}
@@ -305,7 +305,7 @@ Caucasian, Other \\
 \begin{column}{0.5\textwidth}
 \begin{figure}
 
-{\centering \includegraphics[width=1\textwidth,height=\textheight]{latex/LHIN_map.jpg}
+{\centering \includegraphics[width=1\textwidth,height=\textheight]{img/LHIN_map.jpg}
 
 }
 
@@ -319,7 +319,7 @@ Caucasian, Other \\
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\textwidth,height=\textheight]{latex/ON_HR_map.jpg}
+{\centering \includegraphics[width=1\textwidth,height=\textheight]{img/ON_HR_map.jpg}
 
 }
 
@@ -329,10 +329,18 @@ Caucasian, Other \\
 \end{figure}
 \end{column}
 \end{columns}
+
+\pause
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textcolor{red}{Data cleaning is \textbf{important}}
+\end{itemize}
 \end{frame}
 
-\begin{frame}{COVID-19}
-\protect\hypertarget{covid-19-1}{}
+\begin{frame}{COVID-19: The Case of Ontario}
+\protect\hypertarget{covid-19-the-case-of-ontario-5}{}
 \begin{itemize}[<+->]
 \tightlist
 \item
@@ -354,7 +362,7 @@ Caucasian, Other \\
 
 \hypertarget{tbl-model}{}
 \begin{longtable}{lccc}
-\caption{\label{tbl-model}Multivariable Regression Results}\tabularnewline
+\caption{\label{tbl-model}\textbf{Selected} Multivariable Regression Results}\tabularnewline
 
 \toprule
 \textbf{Characteristic} & \textbf{OR} & \textbf{95\% CI} & \textbf{p-value}\\
@@ -369,39 +377,35 @@ Caucasian, Other \\
 \endfoot
 \bottomrule
 \endlastfoot
-\textbf{Age Group} &  &  & \\
-\hspace{1em}16\_34 & — & — & \\
-\hspace{1em}35\_54 & 0.90 & 0.67, 1.21 & 0.5\\
-\hspace{1em}55\_and\_over & 0.99 & 0.74, 1.32 & >0.9\\
-\textbf{Income} &  &  & \\
-\hspace{1em}60000\_and\_above & — & — & \\
-\hspace{1em}25000\_59999 & 0.59 & 0.39, 0.89 & 0.011\\
-\hspace{1em}under\_25000 & 0.37 & 0.25, 0.56 & <0.001\\
+\textbf{Income (CAD)} &  &  & \\
+\hspace{1em}60000 and above & — & — & \\
+\hspace{1em}25000-59999 & 0.59 & 0.39, 0.89 & 0.011\\
+\hspace{1em}under 25000 & 0.37 & 0.25, 0.56 & <0.001\\
 \textbf{Race} &  &  & \\
-\hspace{1em}white\_caucasian & — & — & \\
-\hspace{1em}arab\_middle\_eastern & 0.31 & 0.14, 0.69 & 0.004\\
-\hspace{1em}black & 0.32 & 0.17, 0.60 & <0.001\\
-\hspace{1em}east\_asian\_pacific\_islander & 1.15 & 0.50, 2.66 & 0.7\\
-\hspace{1em}indigenous & 0.44 & 0.19, 1.02 & 0.056\\
-\hspace{1em}latin\_american & 0.28 & 0.11, 0.67 & 0.004\\
-\hspace{1em}mixed & 0.64 & 0.25, 1.65 & 0.4\\
-\hspace{1em}other & 0.22 & 0.12, 0.41 & <0.001\\
-\hspace{1em}south\_asian & 0.91 & 0.49, 1.69 & 0.8\\
+\hspace{1em}White/Caucasian & — & — & \\
+\hspace{1em}Arab/Middle Eastern & 0.31 & 0.14, 0.69 & 0.004\\
+\hspace{1em}Black & 0.32 & 0.17, 0.60 & <0.001\\
+\hspace{1em}East Asian/Pacific Islander & 1.15 & 0.50, 2.66 & 0.7\\
+\hspace{1em}Indigenous & 0.44 & 0.19, 1.02 & 0.056\\
+\hspace{1em}Latin Aamerican & 0.28 & 0.11, 0.67 & 0.004\\
+\hspace{1em}Mixed & 0.64 & 0.25, 1.65 & 0.4\\
+\hspace{1em}Other & 0.22 & 0.12, 0.41 & <0.001\\
+\hspace{1em}South Asian & 0.91 & 0.49, 1.69 & 0.8\\
 \textbf{Health Region} &  &  & \\
 \hspace{1em}Toronto & — & — & \\
 \hspace{1em}Central & 1.47 & 0.92, 2.35 & 0.11\\
 \hspace{1em}East & 1.42 & 0.90, 2.23 & 0.13\\
 \hspace{1em}West & 1.55 & 1.05, 2.30 & 0.029\\
-\textbf{Income * Race} &  &  & \\
-\hspace{1em}25000\_59999 * arab\_middle\_eastern & 1.79 & 0.67, 4.83 & 0.2\\
-\hspace{1em}under\_25000 * arab\_middle\_eastern & 3.05 & 1.26, 7.39 & 0.013\\
-\hspace{1em}25000\_59999 * black & 1.34 & 0.59, 3.05 & 0.5\\
-\hspace{1em}under\_25000 * black & 3.19 & 1.45, 6.99 & 0.004\\
-\hspace{1em}25000\_59999 * east\_asian\_pacific\_islander & 0.42 & 0.17, 1.05 & 0.062\\
-\hspace{1em}under\_25000 * east\_asian\_pacific\_islander & 1.16 & 0.47, 2.86 & 0.8\\
-\hspace{1em}25000\_59999 * indigenous & 1.36 & 0.48, 3.89 & 0.6\\
-\hspace{1em}under\_25000 * indigenous & 1.45 & 0.55, 3.80 & 0.5\\
-\hspace{1em}25000\_59999 * latin\_american & 1.24 & 0.45, 3.43 & 0.7\\
+\textbf{Income and Race} &  &  & \\
+\hspace{1em}25000-59999 * Arab/Middle Eastern & 1.79 & 0.67, 4.83 & 0.2\\
+\hspace{1em}under 25000 * Arab/Middle Eastern & 3.05 & 1.26, 7.39 & 0.013\\
+\hspace{1em}25000-59999 * Black & 1.34 & 0.59, 3.05 & 0.5\\
+\hspace{1em}under 25000 * Black & 3.19 & 1.45, 6.99 & 0.004\\
+\hspace{1em}25000-59999 * East Asian/Pacific Islander & 0.42 & 0.17, 1.05 & 0.062\\
+\hspace{1em}under 25000 * East Asian/Pacific Islander & 1.16 & 0.47, 2.86 & 0.8\\
+\hspace{1em}25000-59999 * Indigenous & 1.36 & 0.48, 3.89 & 0.6\\
+\hspace{1em}under 25000 * Indigenous & 1.45 & 0.55, 3.80 & 0.5\\
+\hspace{1em}25000-59999 * Latin American & 1.24 & 0.45, 3.43 & 0.7\\
 \end{longtable}
 \end{frame}
 
@@ -412,46 +416,76 @@ Caucasian, Other \\
 
 \hypertarget{tbl-model1}{}
 \begin{longtable}{lccc}
-\caption{\label{tbl-model}Multivariable Regression Results}\tabularnewline
-
 \toprule
 \textbf{Characteristic} & \textbf{OR} & \textbf{95\% CI} & \textbf{p-value}\\
 \midrule
 
-\hspace{1em}under\_25000 * latin\_american & 2.80 & 1.04, 7.51 & 0.041\\
-\hspace{1em}25000\_59999 * mixed & 0.85 & 0.32, 2.26 & 0.7\\
-\hspace{1em}under\_25000 * mixed & 1.10 & 0.37, 3.27 & 0.9\\
-\hspace{1em}25000\_59999 * other & 6.93 & 2.65, 18.1 & <0.001\\
-\hspace{1em}under\_25000 * other & 4.59 & 2.33, 9.05 & <0.001\\
-\hspace{1em}25000\_59999 * south\_asian & 1.20 & 0.51, 2.85 & 0.7\\
-\hspace{1em}under\_25000 * south\_asian & 2.00 & 0.93, 4.30 & 0.077\\
-\textbf{Race * Health Region} &  &  & \\
-\hspace{1em}arab\_middle\_eastern * Central & 0.66 & 0.26, 1.70 & 0.4\\
-\hspace{1em}black * Central & 0.44 & 0.19, 0.98 & 0.046\\
-\hspace{1em}east\_asian\_pacific\_islander * Central & 0.98 & 0.38, 2.53 & >0.9\\
-\hspace{1em}indigenous * Central & 0.63 & 0.22, 1.79 & 0.4\\
-\hspace{1em}latin\_american * Central & 0.67 & 0.23, 1.96 & 0.5\\
-\hspace{1em}mixed * Central & 0.73 & 0.24, 2.22 & 0.6\\
-\hspace{1em}other * Central & 0.80 & 0.36, 1.78 & 0.6\\
-\hspace{1em}south\_asian * Central & 0.54 & 0.25, 1.20 & 0.13\\
-\hspace{1em}arab\_middle\_eastern * East & 0.43 & 0.13, 1.45 & 0.2\\
-\hspace{1em}black * East & 0.83 & 0.34, 2.04 & 0.7\\
-\hspace{1em}east\_asian\_pacific\_islander * East & 0.86 & 0.29, 2.56 & 0.8\\
-\hspace{1em}indigenous * East & 0.69 & 0.23, 2.08 & 0.5\\
-\hspace{1em}latin\_american * East & 1.03 & 0.32, 3.34 & >0.9\\
-\hspace{1em}mixed * East & 0.91 & 0.28, 3.03 & 0.9\\
+\hspace{1em}under 25000 * Latin American & 2.80 & 1.04, 7.51 & 0.041\\
+\hspace{1em}25000-59999 * Mixed & 0.85 & 0.32, 2.26 & 0.7\\
+\hspace{1em}under 25000 * Mixed & 1.10 & 0.37, 3.27 & 0.9\\
+\hspace{1em}25000-59999 * Other & 6.93 & 2.65, 18.1 & <0.001\\
+\hspace{1em}under 25000 * Other & 4.59 & 2.33, 9.05 & <0.001\\
+\hspace{1em}25000-59999 * South Asian & 1.20 & 0.51, 2.85 & 0.7\\
+\hspace{1em}under 25000 * South Asian & 2.00 & 0.93, 4.30 & 0.077\\
+\textbf{Race and Health Region} &  &  & \\
+\hspace{1em}Arab/Middle Eastern * Central & 0.66 & 0.26, 1.70 & 0.4\\
+\hspace{1em}Black * Central & 0.44 & 0.19, 0.98 & 0.046\\
+\hspace{1em}East Asian/Pacific Islander * Central & 0.98 & 0.38, 2.53 & >0.9\\
+\hspace{1em}Mixed * East & 0.91 & 0.28, 3.03 & 0.9\\
 \hspace{1em}other * East & 1.05 & 0.39, 2.83 & >0.9\\
-\hspace{1em}south\_asian * East & 0.52 & 0.19, 1.45 & 0.2\\
-\hspace{1em}arab\_middle\_eastern * West & 1.00 & 0.37, 2.73 & >0.9\\
-\hspace{1em}black * West & 0.76 & 0.32, 1.80 & 0.5\\
-\hspace{1em}east\_asian\_pacific\_islander * West & 0.52 & 0.20, 1.34 & 0.2\\
-\hspace{1em}indigenous * West & 0.39 & 0.14, 1.09 & 0.073\\
-\hspace{1em}latin\_american * West & 0.94 & 0.32, 2.72 & >0.9\\
-\hspace{1em}mixed * West & 0.37 & 0.12, 1.16 & 0.089\\
-\hspace{1em}other * West & 0.41 & 0.18, 0.93 & 0.032\\
-\hspace{1em}south\_asian * West & 0.41 & 0.18, 0.95 & 0.037\\*
+\hspace{1em}South Asian * East & 0.52 & 0.19, 1.45 & 0.2\\
+\hspace{1em}Arab/Middle Eastern * West & 1.00 & 0.37, 2.73 & >0.9\\
+\hspace{1em}Black * West & 0.76 & 0.32, 1.80 & 0.5\\
+\hspace{1em}East Asian/Pacific Islander * West & 0.52 & 0.20, 1.34 & 0.2\\
+\hspace{1em}Indigenous * West & 0.39 & 0.14, 1.09 & 0.073\\
+\hspace{1em}Latin American * West & 0.94 & 0.32, 2.72 & >0.9\\
+\hspace{1em}Mixed * West & 0.37 & 0.12, 1.16 & 0.089\\
+\hspace{1em}Other * West & 0.41 & 0.18, 0.93 & 0.032\\
+\hspace{1em}South Asian * West & 0.41 & 0.18, 0.95 & 0.037\\*
 \multicolumn{4}{l}{\rule{0pt}{1em}\textsuperscript{1} OR = Odds Ratio, CI = Confidence Interval}\\
 \end{longtable}
+\end{frame}
+
+\begin{frame}{How do we interpret this?}
+\protect\hypertarget{how-do-we-interpret-this}{}
+\begin{itemize}[<+->]
+\item
+  Our results show that there were disparities in vaccination uptake in
+  Ontario.
+\item
+  People in certain racial minority groups had lower odds of vaccination
+  than White/Caucasian individuals.
+\item
+  However, individuals that identified with a racial/ethnic minority and
+  that were in a low household income bracket (\textless60k CAD) had
+  higher odds of vaccination than individuals with a high household
+  income.
+\item
+  This is likely caused by the type of occupation: people in racial
+  minorities, and those with a low household income work in essential
+  occupations \footcite{hawkins2020}, and thus potentially got the
+  vaccine to be able to work.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{How do we interpret this?}
+\protect\hypertarget{how-do-we-interpret-this-1}{}
+\begin{itemize}[<+->]
+\item
+  But there are also intra-provincial differences in vaccine uptake
+  within the Health Regions:
+
+  \begin{itemize}[<+->]
+  \item
+    For example, South Asian individuals in the West Health Region had
+    lower odds of vaccination that in other Health Regions.
+  \item
+    These results provide a more comprehensive assessment of COVID-19
+    vaccination rates within Ontario, as they showed that certain
+    minority groups within specific income brackets and certain Health
+    Regions had differences in vaccination.
+  \end{itemize}
+\end{itemize}
 \end{frame}
 
 \hypertarget{the-case-of-biomedical-data}{%
@@ -460,6 +494,166 @@ Data}\label{the-case-of-biomedical-data}}
 
 \begin{frame}{Longitudinal Data}
 \protect\hypertarget{longitudinal-data}{}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Biomedical studies often collect longitudinal data to see the effect
+  of an intervention over time:
+
+  \begin{itemize}[<+->]
+  \tightlist
+  \item
+    How a chemotherapy treatment changes the metabolism of a tumor
+  \item
+    How the concentration of a drug changes over time in the blood
+  \end{itemize}
+\item
+  \textcolor{red}{How is this data typically analyzed?}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Linear Models}
+\protect\hypertarget{linear-models}{}
+\begin{equation}\protect\hypertarget{eq-model2}{}{
+\begin{aligned}
+y_{ijt} = \beta_0+\beta_1 \times treatment_{j} +\beta_2 \times time_{t} +\\ \beta_3 \times time_{t}\times treatment_{j}+\varepsilon_{ijt}\\ 
+\end{aligned}
+}\label{eq-model2}\end{equation}
+
+where,
+
+\(y_{ijt}\): is the response for subject \(i\) in treatment group \(j\)
+at time \(t\)
+
+\pause
+
+\(\beta_0\): the mean group value
+
+\pause
+
+\(time_t\), \(treatment_j\): fixed effects
+
+\pause
+
+\(\beta_1, \beta_2\) and \(\beta_3\): linear slopes of the fixed
+effects.
+
+\pause
+
+\(\varepsilon_{ijt}\): error, assumed to be \(\sim N(0,\sigma^2)\)
+
+\pause
+
+A LMEM follows the same exact structure, only incorporates a random
+effect \(\alpha_{ij}\), which allows for different intercepts.
+\end{frame}
+
+\begin{frame}{Trends Over Time}
+\protect\hypertarget{trends-over-time}{}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{figure}
+
+{\centering \includegraphics[width=1\textwidth,height=\textheight]{img/Skala.jpg}
+
+}
+
+\caption{Tumor imaging data (Skala et al.~2010)}
+
+\end{figure}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\begin{figure}
+
+{\centering \includegraphics[width=1\textwidth,height=\textheight]{img/Vishwanath.jpg}
+
+}
+
+\caption{Tumor oxygenation data (Vishwanath et al.~2009)}
+
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Trends Over Time}
+\protect\hypertarget{trends-over-time-1}{}
+\begin{itemize}[<+->]
+\item
+  The issue in those data is that the trends are not linear, and
+  therefore, a linear model will miss changes in the signal where some
+  metabolic or physiological relevant change is taking place.
+\item
+  Polynomial effects can be used, but they create biases at the
+  boundaries of the covariates\footcite{beck1998}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Generalized Additive Models (GAMs)}
+\protect\hypertarget{generalized-additive-models-gams}{}
+\begin{equation}\protect\hypertarget{eq-GAM}{}{
+y_{ijt}=\beta_0+ \beta_1 \times treatment_j+f(time_t\mid \beta_j)+\varepsilon_{ijt}
+}\label{eq-GAM}\end{equation}
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  The change of \(y_{ijt}\) over time is represented by the \emph{smooth
+  function} \(f(time_t\mid \beta_j)\) with inputs as the covariates
+  \(time_t\) and parameters \(\beta_j\).
+\end{itemize}
+
+\pause
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  We can use a \emph{basis function} to estimate the smooth function.
+\end{itemize}
+
+\pause
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Splines are helpful as basis functions: Thin plate regression splines
+  (TPRS) are computationally efficient, and the underlying principle is
+  that of polynomial pieces ``joined'' together
+\end{itemize}
+\end{frame}
+
+\begin{frame}{How GAMs work}
+\protect\hypertarget{how-gams-work}{}
+\begin{figure}
+
+{\centering \includegraphics{MfPH_Next_Generation_AM_March_2023_files/figure-beamer/basis-functions-plot-1.pdf}
+
+}
+
+\caption{Fitting process of a GAM.}
+
+\end{figure}
+\end{frame}
+
+\begin{frame}{An Example}
+\protect\hypertarget{an-example}{}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Simulated data from a study on radiotherapy in a mouse model of
+  cervical cancer \footcite{zheng2019}.
+\end{itemize}
+
+\begin{figure}
+
+{\centering \includegraphics{MfPH_Next_Generation_AM_March_2023_files/figure-beamer/simulated-data-1.pdf}
+
+}
+
+\caption{Tumor volume in two groups of tumors under radiotherapy}
+
+\end{figure}
 \end{frame}
 
 
