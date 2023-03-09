@@ -34,7 +34,10 @@ library(patchwork)
 library(here)
 library(emmeans)
 library(viridis)
+library(scico)
+library(gratia)
 set.seed(1) #for reproducibility
+thm1<-scale_fill_scico_d(palette="tokyo",begin=0.3, end=0.8, direction = -1, aesthetics = c("colour","fill"))
 ```
 
 
@@ -504,12 +507,12 @@ b_plot
 
 ## An Example
 
-- Simulated data from a study on radiotherapy in a mouse model of cervical cancer \footcite{zheng2019}.
+- Simulated data from a study on radiotherapy in a mouse model of melanoma \footcite{sen2011}.
 
 ```{r, simulated-data}
 #| echo: false
 #| fig-height: 2
-#| fig-width: 2.5
+#| fig-width: 4
 #| fig-cap: Tumor volume in two groups of tumors under radiotherapy
 
 breaks_s<-c(10,12,14,16,18,20,22,24,26) #set tick marks
@@ -537,8 +540,8 @@ dat_sim <- simulate_data(data, n, sd)
 
 
 #plotting simulated data
-ggplot(dat_sim, aes(x = Day, y = Vol_sim, color = Group)) +
-    geom_point(show.legend=FALSE,
+ggplot(dat_sim, aes(x = Day, y = Vol_sim, color = Group, fill=Group)) +
+    geom_point(show.legend=TRUE,
                size=0.5,
                alpha=0.6)+
     stat_summary(aes(y = Vol_sim,
@@ -546,15 +549,13 @@ ggplot(dat_sim, aes(x = Day, y = Vol_sim, color = Group)) +
                  fun=mean, 
                  geom="line",
                  size=0.5,
-                 show.legend = FALSE,
+                 show.legend = TRUE,
                  alpha=0.6)+
     labs(y=expression(Volume(mm^3)))+
     theme_classic()+
-    #theme(
-        #axis.text=element_text(size=5)
-    #)+
+  theme(legend.position = "bottom")+
     scale_x_continuous(breaks=breaks_s)+
-    scale_colour_viridis_d(option="mako",end=0.8)
+    thm1
 
 ```
 
@@ -563,46 +564,112 @@ ggplot(dat_sim, aes(x = Day, y = Vol_sim, color = Group)) +
 ```{r,model}
 #| echo: false
 #| warning: false
+#| fig-height: 2
+#| fig-width: 4
+#| fig-cap: GAM fitted to simulated data
 
 gam1<- gam(Vol_sim ~ Group+s(Day, by = Group, k = 9),
           method='REML',
           data  = dat_sim)
+
 
 #creates a dataframe using the length of the covariates for the GAM
 gam_predict <- expand_grid(Group = factor(c("T1", "T2")),
                            Day = seq(10, 26, by = 0.1),
                            subject=factor(rep(1:10)))
 
-#adds the predictions to the grid and creates a confidence interval for GAM
-gam_predict<-gam_predict%>%
-    mutate(fit = predict(gam1,gam_predict,se.fit = TRUE,type='response')$fit,
-           se.fit = predict(gam1, gam_predict,se.fit = TRUE,type='response')$se.fit)
+## point-wise interval
+ci <- confint(gam1, parm = "s(Day)", partial_match = TRUE, type = "confidence",data=gam_predict)
+## simultaneous interval
+si <- confint(gam1, parm = "s(Day)", type = "simultaneous", partial_match = TRUE,data=gam_predict)
 
-#plot smooths and confidence interval for GAM
-f3<-ggplot(data=dat_sim, aes(x=Day, y=Vol_sim, group=Group)) +
-    geom_point(aes(color=Group),size=1.5,alpha=0.5,show.legend = FALSE)+
-    geom_ribbon(aes( x=Day,ymin=(fit - 2*se.fit),
-                     ymax=(fit + 2*se.fit),
-                     fill=Group
-    ),
-    alpha=0.3,
-    data=gam_predict,
-    show.legend=FALSE,
-    inherit.aes=FALSE) +
-    geom_line(aes(y=fit,
-                  color=Group),
-              size=1,
-              data=gam_predict,
-              show.legend = FALSE)+
-    #facet_wrap(~Group)+
-    labs(y=expression(atop("Tumor volume", (mm^3))))+
+gr="T2"
+
+# mean shift for Treatment group
+Intercept<-coef(gam1)[1]
+const <- coef(gam1)[2]+Intercept
+
+#pointwise confidence interval
+ci <- ci %>%
+mutate(est = case_when(Group == gr ~ est + const,
+TRUE ~ est+Intercept),
+lower = case_when(Group == gr ~ lower + const,
+TRUE ~ lower+Intercept),
+upper = case_when(Group == gr ~ upper + const,
+TRUE ~ upper+Intercept))
+
+#simultaneous interval
+si <- si %>%
+mutate(est = case_when(Group == gr ~ est + const,
+TRUE ~ est+Intercept),
+lower = case_when(Group == gr ~ lower + const,
+TRUE ~ lower+Intercept),
+upper = case_when(Group == gr ~ upper + const,
+TRUE ~ upper+Intercept))
+
+
+#plot smooths and pointwise and simulatenous confidence intervals for GAM
+f3<-ggplot(ci, aes(x = Day, y = est, group = smooth)) +
+geom_line(size=0.5,show.legend = TRUE) +
+# geom_ribbon(data = ci, mapping = aes(ymin = lower, ymax = upper, x = Day, group = smooth,fill = Group),
+# inherit.aes = FALSE, alpha = 0.5,
+# show.legend=FALSE) +
+geom_ribbon(data = si,
+mapping = aes(ymin = lower, ymax = upper, x = Day, group = smooth,fill =Group),
+inherit.aes = FALSE, alpha = 0.5,
+show.legend=FALSE)+
+    geom_point(data=dat_sim, aes(x = Day, 
+                        y = Vol_sim, 
+                        color = Group), 
+                        size=0.5,
+                        alpha=0.6, 
+               inherit.aes = FALSE,
+               show.legend = TRUE)+
+    #geom_line(data=si,aes(Day,upper,color=Group), size=0.1, alpha=0.7,show.legend = FALSE)+
+    #geom_line(data=si,aes(Day,lower,color=Group), size=0.1, alpha=0.7,show.legend = FALSE)+
+    labs(y=expression(Volume(mm^3)))+
     scale_x_continuous(breaks=breaks_s)+
-    theme_classic()+
-    theme(
-        axis.text=element_text(size=8)
-    )+
-    scale_colour_viridis_d(option="mako",end=0.8)
+      theme_classic()+
+  theme(legend.position = "bottom")+
+  thm1
 
 f3
 ```
 
+
+- The model captures the trend of the data
+
+
+## Differences
+
+```{r,differences}
+#| echo: false
+#| warning: false
+#| fig-height: 2
+#| fig-width: 4
+#| fig-cap: Pairwise comparisons between smooths
+#| 
+source(here::here("slides","scripts","pointwise_comparisons.R"))
+
+source(here::here("slides","scripts","difference_smooths.R"))
+
+
+
+diff_complete <- difference_smooths(gam1, smooth = "s(Day)", newdata = newdat,
+                     unconditional = TRUE, frequentist = FALSE,
+                     n=100, partial_match = TRUE, nrep=10000)
+
+
+
+
+ggplot() +
+  geom_line(data = diff_complete, aes(x = Day, y = diff),size=1, alpha=0.5) +
+  geom_ribbon(data = diff_complete, aes(x = Day, ymin = lower_s, ymax = upper_s),
+              alpha = 0.5, fill = "blue", inherit.aes = FALSE) +
+  geom_hline(yintercept = 0, lty = 2, color = "red")+
+    scale_x_continuous(breaks=breaks_s)+
+    labs(y="Difference\n(Complete observations)")+
+    theme_classic()+
+    theme(
+    axis.text=element_text(size=8))
+```

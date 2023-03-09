@@ -176,7 +176,7 @@ insights from biomedical and public health data}
 
 \begin{document}
 \frame{\titlepage}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, interior hidden, frame hidden, borderline west={3pt}{0pt}{shadecolor}, sharp corners, enhanced, breakable]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, interior hidden, sharp corners, frame hidden, borderline west={3pt}{0pt}{shadecolor}, enhanced, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \begin{frame}{Introduction}
 \protect\hypertarget{introduction}{}
@@ -642,7 +642,7 @@ y_{ijt}=\beta_0+ \beta_1 \times treatment_j+f(time_t\mid \beta_j)+\varepsilon_{i
 \tightlist
 \item
   Simulated data from a study on radiotherapy in a mouse model of
-  cervical cancer \footcite{zheng2019}.
+  melanoma \footcite{sen2011}.
 \end{itemize}
 
 \begin{figure}
@@ -652,6 +652,38 @@ y_{ijt}=\beta_0+ \beta_1 \times treatment_j+f(time_t\mid \beta_j)+\varepsilon_{i
 }
 
 \caption{Tumor volume in two groups of tumors under radiotherapy}
+
+\end{figure}
+\end{frame}
+
+\begin{frame}{Fitting a GAM}
+\protect\hypertarget{fitting-a-gam}{}
+\begin{figure}
+
+{\centering \includegraphics{MfPH_Next_Generation_AM_March_2023_files/figure-beamer/model-1.pdf}
+
+}
+
+\caption{GAM fitted to simulated data}
+
+\end{figure}
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  The model captures the trend of the data
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Differences}
+\protect\hypertarget{differences}{}
+\begin{figure}
+
+{\centering \includegraphics{MfPH_Next_Generation_AM_March_2023_files/figure-beamer/differences-1.pdf}
+
+}
+
+\caption{Pairwise comparisons}
 
 \end{figure}
 \end{frame}
