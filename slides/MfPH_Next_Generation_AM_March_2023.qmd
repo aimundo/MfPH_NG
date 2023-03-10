@@ -609,7 +609,7 @@ TRUE ~ upper+Intercept))
 
 
 #plot smooths and pointwise and simulatenous confidence intervals for GAM
-f3<-ggplot(ci, aes(x = Day, y = est, group = smooth)) +
+ggplot(ci, aes(x = Day, y = est, group = smooth,color=Group)) +
 geom_line(size=0.5,show.legend = TRUE) +
 # geom_ribbon(data = ci, mapping = aes(ymin = lower, ymax = upper, x = Day, group = smooth,fill = Group),
 # inherit.aes = FALSE, alpha = 0.5,
@@ -632,12 +632,12 @@ show.legend=FALSE)+
       theme_classic()+
   theme(legend.position = "bottom")+
   thm1
-
-f3
 ```
 
 
 - The model captures the trend of the data
+
+- We can furthermore compare the trends.
 
 
 ## Differences
@@ -646,7 +646,7 @@ f3
 #| echo: false
 #| warning: false
 #| fig-height: 2
-#| fig-width: 4
+#| fig-width: 3
 #| fig-cap: Pairwise comparisons between smooths
 #| 
 source(here::here("slides","scripts","pointwise_comparisons.R"))
@@ -673,3 +673,80 @@ ggplot() +
     theme(
     axis.text=element_text(size=8))
 ```
+
+- We can compare the smooths for each group. Here, we see that T2 is significantly higher after \approx day 18.
+
+- This can give an idea of further explorations of biological processes that might be driving this difference (e.g., hypoxia, metabolic changes, vascular development).
+
+## Addressing Reproducibility
+
+- There is an ongoing need of making papers reproducible.
+
+- This is specially important in the case of data/methods of health research.
+
+  - Otherwise, tools cannot be used by others.
+  
+- How are we addressing this in our research?
+
+## Addressing Reproducibility
+
+- Using GitHub to share:
+
+  - Data: Making publicly available the datasets used
+  
+  - Methods: Sharing the code used for statistical analyses 
+  
+- In synthesis, sharing all the information used to create a paper such that anyone can re-create the analysis, results, and the paper itself from the files provided.
+
+## Addressing Reproducibility
+
+- For GAMs [https://github.com/aimundo/GAMs-biomedical-research](https://github.com/aimundo/GAMs-biomedical-research)
+
+- COVID-19: Work is ongoing, but repository will be ready when paper is submitted
+
+## Conclusion
+
+- There is an ongoing need of analyzing public health data to address important disparities in areas such as vaccination.
+
+- Semi-parametric statistical to analyze biomedical/public health longitudinal data, such as GAMs can provide better insight on periods where important biological changes might occur.
+
+## Acknowledgements
+::: {.nonincremental}
+:::: {.columns}
+
+::: {.column width="50%"}
+
+- \textcolor{blue}{The Nasri Lab (Université de Montréal)}
+
+  - Bouchra Nasri, PhD (PI) 
+
+  - Idriss Sekkak, PhD
+  
+  - Rado Ramasy
+  
+  - Fatima El-Mousawi
+  
+  - Rawda Berkat
+
+\break
+
+- \textcolor{blue}{The Muldoon Lab (University of Arkansas)}
+
+  - Timothy J. Muldoon (PI)
+
+- John R. Tipton (Los Alamos National Laboratory)
+
+:::
+
+::: {.column width="50%"}
+
+![](img/crm_logo.png){width=80%} 
+![](img/Fields_MfPH.jpg){width=100%}
+![](img/ABI.png){width=50%}
+![](img/nsf.png){width=30%}
+
+:::
+
+::::
+:::
+

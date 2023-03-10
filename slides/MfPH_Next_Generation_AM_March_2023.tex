@@ -176,7 +176,7 @@ insights from biomedical and public health data}
 
 \begin{document}
 \frame{\titlepage}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, interior hidden, sharp corners, frame hidden, borderline west={3pt}{0pt}{shadecolor}, enhanced, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, enhanced, sharp corners, frame hidden, breakable]}{\end{tcolorbox}}\fi
 
 \begin{frame}{Introduction}
 \protect\hypertarget{introduction}{}
@@ -669,9 +669,10 @@ y_{ijt}=\beta_0+ \beta_1 \times treatment_j+f(time_t\mid \beta_j)+\varepsilon_{i
 \end{figure}
 
 \begin{itemize}[<+->]
-\tightlist
 \item
   The model captures the trend of the data
+\item
+  We can furthermore compare the trends.
 \end{itemize}
 \end{frame}
 
@@ -683,9 +684,128 @@ y_{ijt}=\beta_0+ \beta_1 \times treatment_j+f(time_t\mid \beta_j)+\varepsilon_{i
 
 }
 
-\caption{Pairwise comparisons}
+\caption{Pairwise comparisons between smooths}
 
 \end{figure}
+
+\begin{itemize}[<+->]
+\item
+  We can compare the smooths for each group. Here, we see that T2 is
+  significantly higher after \approx day 18.
+\item
+  This can give an idea of further explorations of biological processes
+  that might be driving this difference (e.g., hypoxia, metabolic
+  changes, vascular development).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Addressing Reproducibility}
+\protect\hypertarget{addressing-reproducibility}{}
+\begin{itemize}[<+->]
+\item
+  There is an ongoing need of making papers reproducible.
+\item
+  This is specially important in the case of data/methods of health
+  research.
+
+  \begin{itemize}[<+->]
+  \tightlist
+  \item
+    Otherwise, tools cannot be used by others.
+  \end{itemize}
+\item
+  How are we addressing this in our research?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Addressing Reproducibility}
+\protect\hypertarget{addressing-reproducibility-1}{}
+\begin{itemize}[<+->]
+\item
+  Using GitHub to share:
+
+  \begin{itemize}[<+->]
+  \item
+    Data: Making publicly available the datasets used
+  \item
+    Methods: Sharing the code used for statistical analyses
+  \end{itemize}
+\item
+  In synthesis, sharing all the information used to create a paper such
+  that anyone can re-create the analysis, results, and the paper itself
+  from the files provided.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Addressing Reproducibility}
+\protect\hypertarget{addressing-reproducibility-2}{}
+\begin{itemize}[<+->]
+\item
+  For GAMs \url{https://github.com/aimundo/GAMs-biomedical-research}
+\item
+  COVID-19: Work is ongoing, but repository will be ready when paper is
+  submitted
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Conclusion}
+\protect\hypertarget{conclusion}{}
+\begin{itemize}[<+->]
+\item
+  There is an ongoing need of analyzing public health data to address
+  important disparities in areas such as vaccination.
+\item
+  Semi-parametric statistical to analyze biomedical/public health
+  longitudinal data, such as GAMs can provide better insight on periods
+  where important biological changes might occur.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Acknowledgements}
+\protect\hypertarget{acknowledgements}{}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item
+  \textcolor{blue}{The Nasri Lab (Université de Montréal)}
+
+  \begin{itemize}
+  \item
+    Bouchra Nasri, PhD (PI)
+  \item
+    Idriss Sekkak, PhD
+  \item
+    Rado Ramasy
+  \item
+    Fatima El-Mousawi
+  \item
+    Rawda Berkat
+  \end{itemize}
+\end{itemize}
+
+\break
+
+\begin{itemize}
+\item
+  \textcolor{blue}{The Muldoon Lab (University of Arkansas)}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Timothy J. Muldoon (PI)
+  \end{itemize}
+\item
+  John R. Tipton (Los Alamos National Laboratory)
+\end{itemize}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\includegraphics[width=0.8\textwidth,height=\textheight]{img/crm_logo.png}
+\includegraphics[width=1\textwidth,height=\textheight]{img/Fields_MfPH.jpg}
+\includegraphics[width=0.5\textwidth,height=\textheight]{img/ABI.png}
+\includegraphics[width=0.3\textwidth,height=\textheight]{img/nsf.png}
+\end{column}
+\end{columns}
 \end{frame}
 
 
