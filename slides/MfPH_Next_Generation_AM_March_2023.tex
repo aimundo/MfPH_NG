@@ -176,7 +176,7 @@ insights from biomedical and public health data}
 
 \begin{document}
 \frame{\titlepage}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, enhanced, sharp corners, frame hidden, breakable]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, sharp corners, interior hidden, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, breakable, enhanced]}{\end{tcolorbox}}\fi
 
 \begin{frame}{Introduction}
 \protect\hypertarget{introduction}{}
@@ -190,17 +190,19 @@ insights from biomedical and public health data}
   can result in different interpretations.
 \item
   In this talk I will focus on two examples that showcase how we can get
-  more insight from data
+  more insight from looking at data from a different perspective.
 \end{itemize}
 \end{frame}
 
-\hypertarget{the-case-of-public-health-data}{%
-\section{The Case of Public Health
-Data}\label{the-case-of-public-health-data}}
+\hypertarget{the-case-of-public-health-data-covid-19-vaccination}{%
+\section{The Case of Public Health Data: COVID-19
+Vaccination}\label{the-case-of-public-health-data-covid-19-vaccination}}
 
-\begin{frame}{COVID-19}
-\protect\hypertarget{covid-19}{}
+\begin{frame}{COVID-19: Why?}
+\protect\hypertarget{covid-19-why}{}
 \begin{itemize}[<+->]
+\item
+  The pandemic is still ongoing
 \item
   COVID-19 vaccination has been an important component of public health
   strategies aimed at managing the pandemic.
@@ -212,11 +214,13 @@ Data}\label{the-case-of-public-health-data}}
 \pause
 
 \begin{itemize}[<+->]
-\tightlist
 \item
   Individuals with lower income, and those belonging to a racial/ethnic
   minority have had lower vaccination uptake
   \footcite{nafilyan2021}\(^{,}\)\footcite{gerretsen2021}.
+\item
+  This is important because these differences in vaccination uptake have
+  implications on virus transmission.
 \end{itemize}
 \end{frame}
 
@@ -225,7 +229,7 @@ Data}\label{the-case-of-public-health-data}}
 \begin{itemize}[<+->]
 \item
   The Fields Institute collected some very nice data regarding COVID-19
-  vaccination in Ontario, the \emph{Survey of COVID-19 related
+  vaccination in Ontario: the \emph{Survey of COVID-19 related
   Behaviours and Attitudes}.
 
   \begin{itemize}[<+->]
@@ -278,11 +282,14 @@ Caucasian, Other \\
   Other studies have analyzed the dependency on vaccination status using
   socio-economic data.
 \item
-  We could do the same, but what other information could we get from
-  this data?
-\item
-  From a Public Health Perspective, there have been some relatively
-  recent developments in Ontario.
+  We could do the same, but what else can we get from this data?
+
+  \begin{itemize}[<+->]
+  \tightlist
+  \item
+    There have been some interesting changes in Ontario with regard to
+    healthcare.
+  \end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -290,17 +297,59 @@ Caucasian, Other \\
 \protect\hypertarget{covid-19-the-case-of-ontario-3}{}
 \begin{itemize}[<+->]
 \item
-  However, Ontario adopted in late 2019 the Health Regions for
-  healthcare and phased out the Local Health Integration Network (LHIN)
-  approach.
+  Between 2006 and 2019, Ontario was geographically divided in ``Local
+  Health Integration Networks'' (LHINs).
 \item
-  The change is relatively new, and therefore, geographical data can be
-  used to analyze data within the different Health Regions.
+  LHINs were essentially geographic intra-provincial divisions that
+  determined where you could get health care.
+\item
+  There were 14 LHINs, with additional subdivisions.
 \end{itemize}
 \end{frame}
 
 \begin{frame}{COVID-19: The Case of Ontario}
 \protect\hypertarget{covid-19-the-case-of-ontario-4}{}
+\begin{itemize}[<+->]
+\item
+  Problems with the LHINs:
+\item
+  In multiple cases, the boundary of a LHIN did not match a municipal
+  boundary.
+
+  \begin{itemize}[<+->]
+  \item
+    One part of a city would be in a LHIN whereas another part of it
+    would be in another LHIN.
+  \item
+    Weakness in this approach due to complexity, lack of funding and
+    bureaucracy were identified \footcite{tsasis2012}.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{COVID-19: The Case of Ontario}
+\protect\hypertarget{covid-19-the-case-of-ontario-5}{}
+\begin{itemize}[<+->]
+\item
+  In late 2019, Ontario adopted the Health Regions approach for
+  healthcare and phased out the Local Health Integration Network (LHIN)
+  approach.
+\item
+  The change is relatively new. Multiple challenges:
+
+  \begin{itemize}[<+->]
+  \tightlist
+  \item
+    Data for the Health Regions is not available from the Census.
+  \item
+    \textbf{Have the Health Regions helped in reducing disparities in
+    healthcare in the province?}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{COVID-19: The Case of Ontario}
+\protect\hypertarget{covid-19-the-case-of-ontario-6}{}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \begin{figure}
@@ -329,18 +378,30 @@ Caucasian, Other \\
 \end{figure}
 \end{column}
 \end{columns}
-
-\pause
-
-\begin{itemize}[<+->]
-\tightlist
-\item
-  \textcolor{red}{Data cleaning is \textbf{important}}
-\end{itemize}
 \end{frame}
 
 \begin{frame}{COVID-19: The Case of Ontario}
-\protect\hypertarget{covid-19-the-case-of-ontario-5}{}
+\protect\hypertarget{covid-19-the-case-of-ontario-7}{}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Where in Ontario did responses come from?
+\end{itemize}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\textwidth,height=0.7\textheight]{img/map.pdf}
+
+}
+
+\caption{\label{fig-map}Geographic representation of the survey data
+collected by the Fields Institute}
+
+\end{figure}
+\end{frame}
+
+\begin{frame}{COVID-19: The Case of Ontario}
+\protect\hypertarget{covid-19-the-case-of-ontario-8}{}
 \begin{itemize}[<+->]
 \tightlist
 \item
@@ -485,6 +546,30 @@ Caucasian, Other \\
     minority groups within specific income brackets and certain Health
     Regions had differences in vaccination.
   \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Conclusions}
+\protect\hypertarget{conclusions}{}
+\begin{itemize}[<+->]
+\item
+  Data cleaning is \textbf{important}\}
+
+  \begin{itemize}[<+->]
+  \tightlist
+  \item
+    Unifying geographical data can be challenging
+  \item
+    Specially because most data relies on legacy information from the
+    LHINs
+  \end{itemize}
+\item
+  A more granular view of data (in this case, examining differences
+  within Health Region, Income and Race) can provide insight for public
+  policy development.
+\item
+  There is a need for future studies that examine more in detail these
+  differences and can provide a rationale.
 \end{itemize}
 \end{frame}
 
@@ -696,6 +781,25 @@ y_{ijt}=\beta_0+ \beta_1 \times treatment_j+f(time_t\mid \beta_j)+\varepsilon_{i
   This can give an idea of further explorations of biological processes
   that might be driving this difference (e.g., hypoxia, metabolic
   changes, vascular development).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Conclusions}
+\protect\hypertarget{conclusions-1}{}
+\begin{itemize}[<+->]
+\item
+  GAMs are useful to analyze longitudinal data because they provide:
+
+  \begin{itemize}[<+->]
+  \item
+    A model that captures non-linear trends in the data
+  \item
+    This allows to examine specific time points that might be of
+    interest, where metabolic, or physiological relevant changes might
+    be occuring
+  \item
+    Lets the data speak for itself
+  \end{itemize}
 \end{itemize}
 \end{frame}
 

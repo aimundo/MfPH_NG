@@ -45,11 +45,13 @@ thm1<-scale_fill_scico_d(palette="tokyo",begin=0.3, end=0.8, direction = -1, aes
 
 - This is specially true in the case of health research: public health, or biomedical data can be complex, and decisions along the analysis can result in different interpretations.
 
-- In this talk I will focus on two examples that showcase how we can get more insight from data 
+- In this talk I will focus on two examples that showcase how we can get more insight from looking at data from a different perspective. 
 
-# The Case of Public Health Data
+# The Case of Public Health Data: COVID-19 Vaccination
 
-## COVID-19
+## COVID-19: Why?
+
+- The pandemic is still ongoing
 
 - COVID-19 vaccination has been an important component of public health strategies aimed at managing the pandemic.
 
@@ -59,10 +61,12 @@ thm1<-scale_fill_scico_d(palette="tokyo",begin=0.3, end=0.8, direction = -1, aes
 
 - Individuals with lower income, and those belonging to a racial/ethnic minority have had lower vaccination uptake \footcite{nafilyan2021}$^{,}$\footcite{gerretsen2021}.
 
+- This is important because these differences in vaccination uptake have implications on virus transmission.
+
 
 ## COVID-19: The Case of Ontario
 
-- The Fields Institute collected some very nice data regarding COVID-19 vaccination in Ontario, the _Survey of COVID-19 related Behaviours and Attitudes_.
+- The Fields Institute collected some very nice data regarding COVID-19 vaccination in Ontario: the _Survey of COVID-19 related Behaviours and Attitudes_.
 
   - The survey ran between late 2021 and early 2022 and collected socio-demographic information along with self-reported vaccination status ("Have you received the first dose of the Covid vaccine?")
   
@@ -82,16 +86,37 @@ thm1<-scale_fill_scico_d(palette="tokyo",begin=0.3, end=0.8, direction = -1, aes
 
 - Other studies have analyzed the dependency on vaccination status using socio-economic data.
 
-- We could do the same, but what other information could we get from this data?
+- We could do the same, but what else can we get from this data?
 
-- From a Public Health Perspective, there have been some relatively recent developments in Ontario.
+  - There have been some interesting changes in Ontario with regard to healthcare.
 
 
 ## COVID-19: The Case of Ontario
 
-- However, Ontario adopted in late 2019 the Health Regions for healthcare and phased out the Local Health Integration Network (LHIN) approach.
+- Between 2006 and 2019, Ontario was geographically divided in "Local Health Integration Networks" (LHINs).
 
-- The change is relatively new, and therefore, geographical data can be used to analyze data within the different Health Regions.
+- LHINs were essentially geographic intra-provincial divisions that determined where you could get health care.
+
+- There were 14 LHINs, with additional subdivisions.
+
+## COVID-19: The Case of Ontario
+
+- Problems with the LHINs:
+
+- In multiple cases, the boundary of a LHIN did not match a municipal boundary.
+
+  - One part of a city would be in a LHIN whereas another part of it would be in another LHIN.
+  
+  - Weakness in this approach due to complexity, lack of funding and bureaucracy were identified \footcite{tsasis2012}.
+
+## COVID-19: The Case of Ontario
+
+- In late 2019, Ontario adopted the Health Regions approach for healthcare and phased out the Local Health Integration Network (LHIN) approach.
+
+- The change is relatively new. Multiple challenges:
+
+  - Data for the Health Regions is not available from the Census.
+  - **Have the Health Regions helped in reducing disparities in healthcare in the province?**
 
 
 ## COVID-19: The Case of Ontario
@@ -113,9 +138,23 @@ thm1<-scale_fill_scico_d(palette="tokyo",begin=0.3, end=0.8, direction = -1, aes
 
 ::::
 
-. . .
 
-- \textcolor{red}{Data cleaning is \textbf{important}}
+## COVID-19: The Case of Ontario
+
+- Where in Ontario did responses come from?
+
+```{r,map, out.width="70%", out.height="70%"}
+#| label: fig-map
+#| fig-cap: "Geographic representation of the survey data collected by the Fields Institute"
+#| message: false
+#| echo: false
+
+knitr::include_graphics(here("slides","img","map.pdf"))
+
+```
+
+
+  
 
 ## COVID-19: The Case of Ontario
 
@@ -234,6 +273,17 @@ $$ {#eq-model1}
   - For example, South Asian individuals in the West Health Region had lower odds of vaccination that in other Health Regions.
   
   - These results provide a more comprehensive assessment of COVID-19 vaccination rates within Ontario, as they showed that certain minority groups within specific income brackets and certain Health Regions had differences in vaccination.
+  
+## Conclusions
+
+- Data cleaning is \textbf{important}}
+  - Unifying geographical data can be challenging
+  - Specially because most data relies on legacy information from the LHINs
+  
+- A more granular view of data (in this case, examining differences within Health Region, Income and Race) can provide insight for public policy development.
+
+- There is a need for future studies that examine more in detail these differences and can provide a rationale.
+
 
 # The Case of Biomedical Data
 
@@ -677,6 +727,16 @@ ggplot() +
 - We can compare the smooths for each group. Here, we see that T2 is significantly higher after \approx day 18.
 
 - This can give an idea of further explorations of biological processes that might be driving this difference (e.g., hypoxia, metabolic changes, vascular development).
+
+## Conclusions
+
+- GAMs are useful to analyze longitudinal data because they provide:
+
+  - A model that captures non-linear trends in the data
+
+  - This allows to examine specific time points that might be of interest, where metabolic, or physiological relevant changes might be occuring
+  
+  - Lets the data speak for itself
 
 ## Addressing Reproducibility
 
