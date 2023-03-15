@@ -264,7 +264,7 @@ $$ {#eq-model1}
 
 - However, individuals that identified with a racial/ethnic minority and that were in a low household income bracket (<60k CAD) had higher odds of vaccination than individuals with a high household income.
 
-- This is likely caused by the type of occupation: people in racial minorities, and those with a low household income work in essential occupations \footcite{hawkins2020}, and thus potentially got the vaccine to be able to work.
+- This is likely caused by the type of occupation: people in racial minorities, and those with a low household income work in essential occupations (gas station workers, grocery store workers, agricultural workers) \footcite{hawkins2020}, and thus potentially got the vaccine to be able to work.
 
 ## How do we interpret this?
 
