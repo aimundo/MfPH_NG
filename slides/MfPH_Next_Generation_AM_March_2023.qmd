@@ -276,7 +276,7 @@ $$ {#eq-model1}
   
 ## Conclusions
 
-- Data cleaning is \textbf{important}}
+- Data cleaning is \textbf{important}
   - Unifying geographical data can be challenging
   - Specially because most data relies on legacy information from the LHINs
   
